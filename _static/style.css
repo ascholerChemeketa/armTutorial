@@ -1,0 +1,171 @@
+table.highlighttable tbody, div.highlight-arm pre {
+    color: #D4D4D4;
+    background-color: rgb(37, 37, 37);
+}
+
+table.highlighttable, div.highlight {
+    overflow: hidden;
+    border-collapse: separate !important;
+    border-radius: 3px;
+    width: 100%;
+    margin-left: 0px;
+}
+
+div.highlight-arm pre {
+    border: none;
+    border-radius: 0;
+    margin: 0;
+}
+
+.highlight .hll {
+    background: #2a4e62;
+}
+
+div.highlight-arm span.c {
+    color: #608b4e;
+}
+
+div.highlight-arm span.m {
+    color: #b5cea8;
+}
+
+div.highlight-arm span.nb {
+    color: #d7ba7d;
+}
+
+div.highlight-arm span.k {
+    color: #9cdcfe;
+}
+
+div.highlight-arm span.nl {
+    color: #e1de8f;
+}
+
+div.highlight-arm span.kn {
+    color: #569cd6;
+}
+
+div.docutils a.armcode {
+    margin: 5px;
+    display: block;
+}
+
+
+.brand-logo {
+    background-size: auto;
+}
+
+em.param-ref {
+    font-weight: bold;
+}
+
+
+code.docutils {
+    color: #d4d4d4;
+    background-color: rgb(37, 37, 37);
+    padding: 2px 6px;
+}
+
+
+
+
+#scprogresscontainer {
+    display: none;
+}
+
+div#main-content {
+    padding-bottom: 3em;
+}
+
+div#main-content hr.docutils {
+    max-width: 500pt;
+}
+
+table.bit-table {
+    table-layout: fixed ;
+    width: 80% ;
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+    margin-bottom: 1em;
+}
+
+table.bit-table tr.bitsrow {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+table.bit-table th {
+    text-align: center;
+    font-size: 80%;
+    color: #ccc;
+    font-weight: normal;
+    font-style: italic;
+    padding-right: 0px;
+}
+
+table.bit-table td {
+    text-align: center;
+    font-size: 90%;
+}
+
+table.bit-table td.left-border {
+    border-left: 1px solid #ccc;
+}
+
+table.bit-table td.right-border {
+    border-right: 1px solid #ccc;
+}
+
+table.bit-table .hexrow {
+    font-weight: bold;
+    color: #608b4e;
+}
+
+table.bit-table td.highlight {
+    background: #dff0da;
+}
+
+
+dl.function {
+    border: 1px solid rgb(216, 197, 197);
+    background: #fafafa;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+dl.function dt {
+    font-size: 120%;
+}
+
+dl.function dd {
+    margin: 0px 20px;
+}
+
+dl.function dd > p:last-child {
+    margin-bottom: 0px;
+}
+
+.section > h2 {
+    margin-top: 1.25em;
+    border-bottom: 1px solid #eee;
+}
+
+
+table.list-table {
+    text-align: left;
+    width: 75%;
+    margin-bottom: 2em;
+}
+
+table.list-table tr:last-of-type td {
+    border-bottom: 1px solid #ddd;
+}
+
+div.container.docutils {
+    margin-bottom: 1.5em;
+}
+
+
+div.figure p.caption {
+    font-style: italic;
+    font-size: 90%;
+}
