@@ -25,6 +25,10 @@ div.highlight-arm span.c {
     color: #608b4e;
 }
 
+div.highlight-arm span.s {
+    color: #c5c5cb;
+}
+
 div.highlight-arm span.m {
     color: #b5cea8;
 }

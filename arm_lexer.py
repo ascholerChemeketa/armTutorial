@@ -23,6 +23,11 @@ class CustomLexer(RegexLexer):
             (r'#[^\s]+', Number),
             (r'-?[Ox|Ob]?[\dABCDEFabcdef]+', Number),
         ],
+        'string': [
+            (r'[^"\\]+', String),
+            (r'\\.', String.Escape),
+            ('"', String, '#pop'),
+        ],
         'root': [
             (words((
                 'ADC', 'ADD', 'ADR', 'AND', 'ASR', 'B', 'BFC', 'BFI', 'BIC', 
@@ -50,6 +55,7 @@ class CustomLexer(RegexLexer):
             include('comments'),
             (r'[\w_]+:', Name.Label),
             include('numbers'),
+            ('"', String, 'string'),
             #(r'\w+', Name),
             (r'r\d{1,2}', Name.Builtin),
             (words(('pc', 'lr', 'sp'), suffix=r'\b'), Name.Builtin),
