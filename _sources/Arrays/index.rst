@@ -11,3 +11,6 @@ Arrays and Strings
 
     ArrayBasics.rst
     ArrayAccess.rst
+    ArrayLoops.rst
+    ArrayLoops2.rst
+    Strings.rst
