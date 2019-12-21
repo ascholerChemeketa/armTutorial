@@ -139,3 +139,16 @@ Address 0x11 has the next byte, etc... as shown below:
    <td class=" left-border right-border" colspan='16'>EEEE</td>
    </tr>
    </table>
+
+
+However, if you ask the simulator to display numbers in bytes:
+
+.. figure:: Images/memory_settings.png 
+
+It displays bytes in numerical order: 0x00, 0x01, 0x02, ... Notice how in byte mode 
+the memory allocated as words (starting at address 0x00) looks jumbled up, while the memory allocated as bytes (starting at 0x10) looks correct.
+
+
+.. figure:: Images/endian_data_as_bytes.png 
+
+   The same data displayed in byte mode.
