@@ -173,3 +173,7 @@ div.figure p.caption {
     font-style: italic;
     font-size: 90%;
 }
+
+div.figure img {
+   max-width: 100%;
+}
