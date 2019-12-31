@@ -34,6 +34,7 @@ def setup(app):
     app.add_directive('armcode',ARMCodeBlock)
     app.add_directive('armlisting',ARMListing)
     app.add_directive('bitpattern',BitPattern)
+    app.add_directive('stackdiagram',StackDiagram)
     app.add_directive('pseudo_h1',PseudoHeader) 
     app.add_directive('pseudo_h2',PseudoHeader)
     app.add_directive('pseudo_h3',PseudoHeader)
@@ -86,6 +87,62 @@ class ARMListing(SphinxDirective):
         node = nodes.raw('', out , format='html')
         return [node]
 
+
+class StackDiagram(SphinxDirective):
+    has_content = True
+    required_arguments = 0
+    optional_arguments = 1
+    final_argument_whitespace = True
+    option_spec = {
+        'no-addresses': directives.flag,
+        'empty': directives.flag,
+        'start-address': directives.unchanged_required,
+    }
+
+    def run(self):
+        address = 0xEFFFFFF0
+        if('start-address' in self.options):
+            address = int(self.options['start-address'], 16)
+
+
+        out = "<table class='stack-table'><tr>"
+        out = out + "<th>Address</th>"
+        out = out + "<th>Contents</th>"
+        out = out + "<th></th>"
+        out = out + "</tr>"
+
+        start_note = ''
+        if('empty' in self.options):
+            start_note = '< sp'
+
+        out = out + "<tr class=''>"
+        out = out + "<td class=''>" + hex(address) + "</td>"
+        out = out + "<td class=''>" + "..." + "</td>"
+        out = out + "<td class='note'>" + start_note + "</td>"
+        out = out + "</tr>"
+        
+        for line in self.content:
+            parts = line.split(",")
+            address = address - 4
+            
+            cell_class = ''
+            if parts[0] == '!':
+                cell_class = cell_class + 'highlight'
+                parts = parts[1:]
+
+            if len(parts) == 1:
+                parts.append("")
+
+            out = out + "<tr class=''>"
+            out = out + "<td class='" + cell_class + "'>" + hex(address) + "</td>"
+            out = out + "<td class='" + cell_class + "'>" + parts[0] + "</td>"
+            out = out + "<td class='note'>" + parts [1] + "</td>"
+            out = out + "</tr>"
+        
+        out = out + "</table>"
+
+        node = nodes.raw('', out , format='html')
+        return [node]
 
         
 class BitPattern(SphinxDirective):

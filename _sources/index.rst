@@ -41,3 +41,5 @@ Topics
    Bitwise/index.rst
    Control/index.rst
    Arrays/index.rst
+   Functions/index.rst
+   

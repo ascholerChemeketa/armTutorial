@@ -177,3 +177,7 @@ div.figure p.caption {
 div.figure img {
    max-width: 100%;
 }
+
+dl dd {
+    margin-left: 20px;
+}

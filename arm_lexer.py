@@ -62,7 +62,7 @@ class CustomLexer(RegexLexer):
             (r',?\s+', Whitespace),
             (r'[\w_]+', Name),
             (r'\.\w+', Keyword.Namespace),
-            (r'[\[\]=]', Text),
+            (r'[\[\]=\{\}]', Text),
         ]
     }
 
