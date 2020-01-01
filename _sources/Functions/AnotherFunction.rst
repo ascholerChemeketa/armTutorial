@@ -1,14 +1,17 @@
 .. include:: ../global.rst
 
 
-Calling Convention Continued
+Another Function
 =====================================
 
-The sample below has a second demonstration of using the calling conventions - it contains an unsigned division function ``udiv`` that is used to figure out the coins to use to make change. It minimizes the amount of information shuffling by keeping long term stored values in r4+ and using r0-r3 for all the temporary work in the function.
+The sample below has a second demonstration of using the calling conventions - it contains an unsigned division function ``udiv`` that is used to figure out the coins to use to make change. The ``udiv`` function takes two parameters, the number to divide and the divisor, passed in ``r0`` and ``r1`` and returns two values, the quotient and the remainder, in ``r0`` and ``r1``.
 
 .. note:: 
 
    Since parameters are just register numbers, documentation of how the registers are being used is critical! 
+
+Like the last one, this program avoids storing and reloading registers by keeping long term values in r4+ and using r0-r3 for all the temporary work in the function.
+
 
 .. armcode::  
    :linenos:
@@ -79,6 +82,3 @@ The sample below has a second demonstration of using the calling conventions - i
       MOV   r1, r0            @remainder = leftover part of number
       MOV   r0, r2            @quotient = temp_quotient
       MOV   pc, lr            @return
-
-
-TODO Test CS in function above

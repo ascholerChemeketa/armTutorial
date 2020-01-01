@@ -18,7 +18,7 @@ Rather than do this process by hand every time we want to call a function, we ca
 
    To return from the branch, MOV the value in lr to the pc register.
 
-.. figure:: TODO BL??
+.. figure:: Images/branch_link.png
 
 This code sample demonstrates the operation of the ``BL`` instruction. It twice jumps to the location labeled ``myFunction`` and returns from it. Note that BL sets the ``lr`` register as it executes and ``MOV PC, LR`` jumps back to the stored location.
 

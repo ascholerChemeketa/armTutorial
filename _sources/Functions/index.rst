@@ -13,4 +13,6 @@ Functions and the Stack
     PushPop.rst
     BranchLink.rst
     CallingConvention.rst
-    CallingConvention2.rst
+    SimpleFunctionCall.rst
+    SmarterFunctionCall.rst
+    AnotherFunction.rst
