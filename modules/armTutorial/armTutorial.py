@@ -48,14 +48,18 @@ def setup(app):
     }
 
 
-class ARMListing(SphinxDirective):
+class arm_listing(nodes.General, nodes.Element):
+    pass
+
+from docutils import nodes
+from docutils.parsers.rst import Directive
+class ARMListing(Directive):
     has_content = True
     required_arguments = 1
     optional_arguments = 1
     final_argument_whitespace = True
 
     def run(self):
-
         name = self.arguments[0]
         params = self.arguments[1].split(",")
         out = "<dl class='function'><dt id='" + name + "'><code class='sig-name descname'>" + name + "</code>"
@@ -100,9 +104,9 @@ class StackDiagram(SphinxDirective):
     }
 
     def run(self):
-        address = 0xEFFFFFF0
+        start_address = 0x100000000
         if('start-address' in self.options):
-            address = int(self.options['start-address'], 16)
+            start_address = int(self.options['start-address'], 16)
 
 
         out = "<table class='stack-table'><tr>"
@@ -110,34 +114,56 @@ class StackDiagram(SphinxDirective):
         out = out + "<th>Contents</th>"
         out = out + "<th></th>"
         out = out + "</tr>"
-
-        start_note = ''
-        if('empty' in self.options):
-            start_note = '< sp'
-
-        out = out + "<tr class=''>"
-        out = out + "<td class=''>" + hex(address) + "</td>"
-        out = out + "<td class=''>" + "..." + "</td>"
-        out = out + "<td class='note'>" + start_note + "</td>"
-        out = out + "</tr>"
         
-        for line in self.content:
+        max_address = start_address - (len(self.content) + 1) * 4
+        address = max_address
+
+        stack_pointer_hit = False
+
+        for line in reversed(self.content):
             parts = line.split(",")
-            address = address - 4
+            address = address + 4
             
             cell_class = ''
             if parts[0] == '!':
                 cell_class = cell_class + 'highlight'
                 parts = parts[1:]
 
-            if len(parts) == 1:
-                parts.append("")
+            contents = parts[0]
+            note = ""
+
+            if len(parts) > 1:
+                note = parts[1]
+
+            if "< sp" in note:
+                stack_pointer_hit = True
+
+            contents_class = ''
+            if not stack_pointer_hit:  
+                contents_class = contents_class + ' off-stack'
+            
+            note = note.replace("<", '<i class="fas fa-arrow-left"></i>')
 
             out = out + "<tr class=''>"
-            out = out + "<td class='" + cell_class + "'>" + hex(address) + "</td>"
-            out = out + "<td class='" + cell_class + "'>" + parts[0] + "</td>"
-            out = out + "<td class='note'>" + parts [1] + "</td>"
+            out = out + "<td class='" + cell_class + "'>" + "0x{:08x}".format(address) + "</td>"
+            out = out + "<td class='" + cell_class + contents_class + "'>" + contents + "</td>"
+            out = out + "<td class='note'>" + note + "</td>"
             out = out + "</tr>"
+
+            
+        start_note = ''
+        if('empty' in self.options):
+            start_note = '<i class="fas fa-arrow-left"></i> sp'
+
+        if start_address == 0x100000000:
+            start_address = 0x00000000
+
+        out = out + "<tr class=''>"
+        out = out + "<td class=''>" + "0x{:08x}".format(start_address) + "</td>"
+        out = out + "<td class=''>" + "..." + "</td>"
+        out = out + "<td class='note'>" + start_note + "</td>"
+        out = out + "</tr>"
+
         
         out = out + "</table>"
 

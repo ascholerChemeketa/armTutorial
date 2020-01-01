@@ -175,9 +175,23 @@ div.figure p.caption {
 }
 
 div.figure img {
-   max-width: 100%;
+    max-width: 100%;
 }
 
 dl dd {
     margin-left: 20px;
+}
+
+.stack-table {
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+    margin-bottom: 1.5em;
+}
+
+.stack-table td, .stack-table th {
+    padding: 2px 10px;
+}
+
+.stack-table .off-stack {
+    font-style: italic;
+    color: #bbb;
 }

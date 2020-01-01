@@ -303,7 +303,9 @@ htmlhelp_basename = 'PythonCoursewareProjectdoc'
 def setup(app):
     #app.add_stylesheet('style.css') 
     app.add_javascript('simulator.js')
+    app.add_javascript('https://kit.fontawesome.com/99041d2947.js')
     app.add_autoversioned_stylesheet('style.css')
+    app.add_stylesheet('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
 
 import pygments
 arm_lexer = pygments.lexers.load_lexer_from_file('arm_lexer.py')
