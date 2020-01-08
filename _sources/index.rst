@@ -25,15 +25,34 @@ is to understand how assembly works, not become a working assembly developer.
 
 .. pseudo_h3:: Conventions:
 
-Samples will sometimes end with an infinite loop: ``end: b end`` - 
-this is provided to prevent the simulator from running invalid instructions or data.
+Samples will sometimes end with an infinite loop: 
 
+.. armcode::  
+   :no-simulator:
+
+   end:     b  end
+
+This is provided to prevent the simulator from running invalid instructions or data. Often times, this will be omitted for brevity, 
+in which case the simulator will report an error after attempting to run past the last instruction. 
+
+All code should start with:
+
+.. armcode::  
+   :no-simulator:
+
+   .text                @identifies this is code
+   .global _start       @declare _start symbol to be globally visible
+   _start:              @identify this location as entry point for the program
+
+It is often omitted as the simulator will assume that it should start at the first line of code it encounters.
 
 Topics
 ==================================
 
+
 .. toctree::
    :includehidden:
+   :numbered:
    :maxdepth: 2
 
    Basics/index.rst

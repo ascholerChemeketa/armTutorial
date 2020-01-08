@@ -49,6 +49,8 @@ Note that the registers we popped value back into are different than the ones we
 This sample uses the PUSH and POP instructions to store three registers and then restore their values after they are wiped:
 
 .. armcode::  
+   :linenos:
+   :emphasize-lines: 10, 19
  
    .text 
    .global _start

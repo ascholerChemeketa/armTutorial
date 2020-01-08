@@ -153,6 +153,7 @@ This sample shows removing the two value from the stack and then adding ``r3`` b
    Stacks always work in a Last In, First Out (LIFO) fashion. You must remove things in the opposite order you add them.
 
 .. armcode::  
+   :linenos:
 
    .text 
    .global _start

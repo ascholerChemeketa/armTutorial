@@ -13,6 +13,7 @@ This version of the absolute value program uses registers in this more appropria
 
 .. armcode::  
    :linenos:
+   :emphasize-lines: 13-15, 47, 55-56
 
    /* 
       Reduces work storing/restoring registers by keeping "local values"
@@ -69,4 +70,4 @@ This version of the absolute value program uses registers in this more appropria
 
    end_absIf:
       @know that r0 now has abs(r0)
-      MOV   PC, LR      @return
+      BX    lr          @return

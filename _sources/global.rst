@@ -2,6 +2,10 @@
 
 .. role:: red
     :class: red
+
+.. role:: emphasize
+    :class: emphasize
+    
     
 .. role:: gray
     :class: gray

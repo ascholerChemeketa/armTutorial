@@ -15,6 +15,7 @@ Like the last one, this program avoids storing and reloading registers by keepin
 
 .. armcode::  
    :linenos:
+   :emphasize-lines: 20, 21, 23-24, 53, 64, 65
 
    /*
       Demonstrates using unsigned division function to make ideal change for 

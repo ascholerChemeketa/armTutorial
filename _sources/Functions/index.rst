@@ -16,3 +16,6 @@ Functions and the Stack
     SimpleFunctionCall.rst
     SmarterFunctionCall.rst
     AnotherFunction.rst
+    NestedCalls.rst
+    StackFrame.rst
+    UsingStackFrame.rst

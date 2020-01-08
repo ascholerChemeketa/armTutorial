@@ -4,9 +4,9 @@
 A Simple Function Call
 =====================================
 
-.. index:: function call
+.. index:: prologue, epilogue
 
-Calling and returning from a function always involves five phases. Control starts at the caller, which has to possibly save information it has in registers r0-r3 and then call the function. The called function needs to gather and save information (the **prologue**), execute its code, and then clean up and return (the **eplogue**). Finally, the caller needs to restore any saved values and then work with any returned value. Here is a summary of what happens:
+Calling and returning from a function always involves five phases. Control starts at the caller, which has to possibly save information it has in registers r0-r3 and then call the function. The called function needs to gather and save information (the **prologue**), execute its code, and then clean up and return (the **epilogue**). Finally, the caller needs to restore any saved values and then work with any returned value. Here is a summary of what happens:
 
 Calling Procedure (Basic)
 -------------------------------------
@@ -29,17 +29,18 @@ Function Epilogue (Done by called function)
 
    Pop any stored registers (r4-r9) from the stack to restore their old values.
 
-   Return to the caller with ``MOV PC, LR``
+   Return to the caller with ``BX lr``
 
 Resume Control (Done by caller)
    Any returned value(s) are in registers r0-r3. 
 
    Pop stored registers (r0-r3) that were preserved before calling. 
 
+
 A Sample Function
 ---------------------------------
 
-The code sample below demonstrates a program that replace r4 and r5 with their absolute values. To do this, it uss an ``abs`` function. To call the function, the main part of the program stores r1, which is in use, then places the parameter (value to take absolute value of) in r0. The function preserves, r4 and r5 so it can use them, then does its work. It finishes up by placing the answer in r0, restoring r4 and r5 and branching back. Then the main part of the program moves the returned value out of r0 and restores r1.
+The code sample below demonstrates a program that replace r4 and r5 with their absolute values. To do this, it uses an ``abs`` function. To call the function, the main part of the program stores r1, which is in use, then places the parameter (value to take absolute value of) in r0. The function preserves, r4 and r5 so it can use them, then does its work. It finishes up by placing the answer in r0, restoring r4 and r5 and branching back. Then the main part of the program moves the returned value out of r0 and restores r1.
 
 Here is how the stack is used to store values along the way:
 
@@ -100,6 +101,7 @@ Here is how the stack is used to store values along the way:
 
 .. armcode::  
    :linenos:
+   :emphasize-lines: 12-13, 15-16, 47-49, 60, 62-63
 
    /*
       Main program is using registers 1, 4 and 5
@@ -163,7 +165,10 @@ Here is how the stack is used to store values along the way:
       @r0 has correct answer at this point
       @restore any registers 4+ I used
       POP   {r4, r5}
-      MOV   PC, LR         @return
+      BX    lr             @return
 
 
+.. tip:: 
+
+   In the simulator, make sure to use Step Into if you want the simulator to follow the branch. If you hit Step Over, the simulator will take the branch, run all the code there and not show any updates until it returns to the next instruction after the branch.
          
