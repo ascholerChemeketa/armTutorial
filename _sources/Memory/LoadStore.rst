@@ -6,8 +6,8 @@ Loading & Storing
 
 .. index:: LDR
 
-ARM is a **load/store** architecture, meaning that most of the instructions can only work on registers. To work with data
-we must first load it into a register. When we are done working on it, we store it back to memory.
+ARM is a **load/store** architecture, meaning that most of the instructions can only work on registers. 
+To work with data we must first load it into a register. When we are done working on it, we store it back to memory.
 
 To load data we use the load register instruction. It typically is a two step process. First we load the address of the data
 that we want, then we load the data itself. We need this two step process because the memory address we want to load from is 

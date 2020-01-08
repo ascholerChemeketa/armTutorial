@@ -61,6 +61,8 @@ To handle loading with sign extension, there is an alternative load byte instruc
    c:   .byte   -1   @ 0xFF
    d:   .byte   0    @
 
+   .align
+
    .text
    LDR   r3, =b      @r3 <- address of b
    LDRB  r3, [r3]    @r3 <- b
@@ -95,10 +97,12 @@ This code sample adds one to the value a in memory by loading it, incrementing t
 
    .data
    a:   .byte   6    @ 0x06
+   
+   .align
 
    .text
    LDR      r1, =a         @r1 <- address of a
    LDRSB    r2, [r1]       @r2 <- a
 
    ADD      r2, r2, #1     @r2 <- a + 1
-   STRSB    r2, [r1]       @a  <- r2
+   STRB     r2, [r1]       @a  <- r2
