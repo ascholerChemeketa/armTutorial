@@ -195,3 +195,23 @@ dl dd {
     font-style: italic;
     color: #bbb;
 }
+
+.footer {
+    display: none;
+}
+
+#main-content {
+    margin-top: -.75 em;
+}
+
+.emphasize {
+    font-weight: bold;
+    color: red;
+}
+
+.gray {
+    color: #ccc;
+}
+.red {
+    color: red;
+}

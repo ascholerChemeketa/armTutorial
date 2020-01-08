@@ -51,8 +51,6 @@ def setup(app):
 class arm_listing(nodes.General, nodes.Element):
     pass
 
-from docutils import nodes
-from docutils.parsers.rst import Directive
 class ARMListing(Directive):
     has_content = True
     required_arguments = 1
@@ -99,6 +97,7 @@ class StackDiagram(SphinxDirective):
     final_argument_whitespace = True
     option_spec = {
         'no-addresses': directives.flag,
+        'no-stack-pointer': directives.flag,
         'empty': directives.flag,
         'start-address': directives.unchanged_required,
     }
@@ -119,6 +118,9 @@ class StackDiagram(SphinxDirective):
         address = max_address
 
         stack_pointer_hit = False
+        show_out_of_scope = True
+        if('no-stack-pointer' in self.options):
+            show_out_of_scope = False
 
         for line in reversed(self.content):
             parts = line.split(",")
@@ -139,7 +141,7 @@ class StackDiagram(SphinxDirective):
                 stack_pointer_hit = True
 
             contents_class = ''
-            if not stack_pointer_hit:  
+            if not stack_pointer_hit and show_out_of_scope:  
                 contents_class = contents_class + ' off-stack'
             
             note = note.replace("<", '<i class="fas fa-arrow-left"></i>')
@@ -260,6 +262,7 @@ class BitPattern(SphinxDirective):
 class ARMCodeBlock(CodeBlock):
     option_spec = {
         'force': directives.flag,
+        'no-simulator': directives.flag,
         'linenos': directives.flag,
         'dedent': int,
         'lineno-start': int,
@@ -280,11 +283,11 @@ class ARMCodeBlock(CodeBlock):
 
         code = "\n".join(self.content)
 
-        link = '<a href="" target="new" class="armcode" data-for="' + id + '">Try sample</a>'
-        link = link + '<div style="display: none" id="' + id + '">' + code + '</div>'
-
-        link_node = nodes.raw('', link , format='html')
-        node.append(link_node)
+        if 'no-simulator' not in self.options:
+            link = '<a href="" target="new" class="armcode" data-for="' + id + '">Try sample</a>'
+            link = link + '<div style="display: none" id="' + id + '">' + code + '</div>'
+            link_node = nodes.raw('', link , format='html')
+            node.append(link_node)
 
         return [node]
         
