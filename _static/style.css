@@ -215,3 +215,18 @@ dl dd {
 .red {
     color: red;
 }
+
+
+@media only screen and (min-width : 768px) {
+    .inlinegroup  {
+        text-align: center;
+        clear: both;
+    }
+    
+    .inlinegroup > div.figure, .inlinegroup > img, .inlinegroup > table {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0px 5px;
+        max-width: 45%;
+    }
+}
