@@ -42,19 +42,20 @@ can hold the full 32 bit value.
    
    end:  b end       @stop program
 
+.. note::
 
-If you look closely at the assembled version of that code, you will notice that in the assembled version, the ``=x`` has been replaced 
-by ``[pc, #4]``. 
+   If you look closely at the assembled version of that code, you will notice that in the assembled version, the ``=x`` has been replaced 
+   by ``[pc, #4]``. 
 
-.. figure:: Images/load.png
+   .. figure:: Images/load.png
 
 
-**[pc, #4]** means 4 bytes past where the Program Counter currently is. When the first LDR runs, the program counter will be 00000000 
-(the address of that instruction). In early version of the ARM architecture, the PC would actually be 8 bytes past that when the instruction 
-executed. So the final address would be 0x00000000 + 4 + 8 = 12 = 0xC. If you look at address 0000000C, it contains the data 0x00000010. 
-0x00000010 is in fact the address of **x**. The assembler has: 1) calculated the address of **x**; 2) stored that value in memory at the end of 
-the .text; 3) set the first LDR to load that value. That is all fairly complex, but most of the time, we do not have to worry about the 
-mechanics. We just use ``LDR rd, =LABEL`` and count on the assembler to manage the details.
+   **[pc, #4]** means 4 bytes past where the Program Counter currently is. When the first LDR runs, the program counter will be 00000000 
+   (the address of that instruction). In early version of the ARM architecture, the PC would actually be 8 bytes past that when the instruction 
+   executed. So the final address would be 0x00000000 + 4 + 8 = 12 = 0xC. If you look at address 0000000C, it contains the data 0x00000010. 
+   0x00000010 is in fact the address of **x**. The assembler has: 1) calculated the address of **x**; 2) stored that value in memory at the end of 
+   the .text; 3) set the first LDR to load that value. That is all fairly complex, but most of the time, we do not have to worry about the 
+   mechanics. We just use ``LDR rd, =LABEL`` and count on the assembler to manage the details.
 
 Loading an Immediate
 --------------------------------

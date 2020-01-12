@@ -20,11 +20,13 @@ We use the **.align** directive to say *"fill out this word of memory"* with 0's
 
 .. warning::
 
-   Failure to align memory when switching between bytes and words is a common mistake. The program will assemble just fine, but 
+   Failure to align memory when switching between bytes and words is a common mistake. 
+   The program will assemble just fine, but 
    when a load instruction tries to access miss-aligned memory, there will be an error. 
    
-   When in doubt, add ``.align`` after 
-   each chunk of data. Extra aligns are ignored, so better safe than sorry.
+   When in doubt, add ``.align`` any time you have allocated some bytes and need to switch 
+   to allocating words. If you use an ``.align`` when the next chunk of memory would 
+   already be aligned, the directive will be safely ignored.
 
 Here are some samples of using the data and align directives:
 
@@ -50,7 +52,7 @@ Here are some samples of using the data and align directives:
 
    @g: starts a new word
    g:    .byte    0x12
-
+   
    .text
    MOV r1, r1   @do nothing
 
