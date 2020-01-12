@@ -47,7 +47,7 @@ Here are some samples of using the data and align directives:
    d:    .hword   0xDDDD
 
    @e/f can go in same word as d
-   e:    .byte    -1  @0xEE
+   e:    .byte    0xEE
    f:    .byte    -1  @0xFF
 
    @g: starts a new word
@@ -61,6 +61,16 @@ Although you can view the memory in the Disassembly view, it is a little confusi
 of cpulator allows you to see a plain view of memory: 
 
 .. figure:: Images/alignment.png
+
+By default, 4 words are shown per row. So each row spans 16 bytes (0x10).
+You may find that this makes it harder to figure out individual addresses. 
+If so, you can force the Memory view to display just one word per row:
+
+.. container:: inlinegroup
+
+   .. figure:: Images/memory_settings_row_size.png
+
+   .. figure:: Images/alignment_narrow.png
 
 
 In memory, we can see the ``MOV`` instruction (e1a01001) and the 00000000 that the ``.text`` is padded
