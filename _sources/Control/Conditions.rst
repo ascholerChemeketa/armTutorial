@@ -42,7 +42,7 @@ In particular, the upper 4 bits of the register are used to track the following 
       You are not responsible for the details, just recognize that the carry bit does not always mean a literal carry.
 
 
-..index:: CMP
+.. index:: CMP
 
 These values are only set by specific instructions. The most straightforward of these instructions is **compare**:
 
@@ -68,3 +68,6 @@ running the ``CMP`` instructions is to change the ``CPSR``.
    
    CMP     r1, #10         @do r1 - 10, set result bits
    @result bits are now 0x6 or 0b0110 : carry and zero bits are set
+
+   end:
+   B     end            @stop here

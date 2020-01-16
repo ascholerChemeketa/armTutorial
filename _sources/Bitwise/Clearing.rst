@@ -30,10 +30,18 @@ we will have a similar problem of needing a large mask to AND with.
 Instead, we can use the bitwise clear instruction - it uses a pattern to specify which bits to clear (ANDing with a pattern specifies 
 which bits to keep).
 
-
 .. armlisting::  BIC rd, rn, rm / #
 
    BIt Clear. Take the pattern from rn, clear out the bits that are 1 in either register rm or immediate #, place the results in rd.
+
+To continue the earlier sample, instead of AND with 0xC1FFFFFF (which is illegal) to say *"keep bits 31-30 and 24-0"*, 
+we can BIC with 0x3E000000 to say *"clear bits 29-25"*:
+
+.. bitpattern::
+   :emphasize-bits: 25-29
+   :inhex:
+
+   3E000000
 
 
 .. armcode::  
@@ -41,7 +49,7 @@ which bits to keep).
    LDR   r5, =0x1BADDEED
    
    @Clear bits 25-29
-   BIC   r6, r5, #0b111         @or #0x7
+   BIC   r6, r5,  #0x3E000000        
 
    @Clear bits 16-31 (first two bytes)
    BIC   r7, r5,  #0xFF000000   @clear first byte
