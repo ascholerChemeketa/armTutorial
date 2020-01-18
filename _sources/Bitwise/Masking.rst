@@ -55,11 +55,13 @@ being used as a mask:
    ORR   r8, r8, #0x0F000000  @r8 = 00FF0000 | 0F000000 = 0FFF0000
    AND   r8, r5, r8           @r8 = 0x1BADDEED & 0x0FFF0000 = 0x0BAD0000
 
-
-   @isolate bits 2-5 : 0x3C == 0011 1100
-   @                   0xED == 1110 1101
-   @                 result == 0010 1100 = 0x2C
+   @isolate bits 2-5 : 
+   @Use mask         0000 ... 0011 1100 = 3C
+   @r5 has           ???? ... 1110 1101 (...ED)
+   @   result ==     0000 ... 0010 1100 = 0x2C
    AND   r8, r5, #0x3C        @r8 = 0x1BADDEED & 0x0000003C = 0x0000002C
+
+   end:  b end       @stop program
 
 ----------------------------------
 

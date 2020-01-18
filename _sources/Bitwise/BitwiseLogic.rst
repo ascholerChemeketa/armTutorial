@@ -18,17 +18,17 @@ The ``AND`` instruction compares the individual bits of two patterns using logic
 In these two patterns:
 
 .. bitpattern::
-   :emphasize-bits: 2-3,4,5
+   :emphasize-bits: 2-3,4-5
    :inhex:
 
    3C
 
 
 .. bitpattern::
-   :emphasize-bits: 0,2-3,4-7
+   :emphasize-bits: 0,2-3,5-6
    :inhex:
 
-   FD
+   6D
 
 Bits 2, 3, and 5 are the only ones that are 1 in both - thus this output is produced:
 
@@ -85,12 +85,12 @@ Bits 0, 2, 3, and 4-7 are 1 in at least one of of the two inputs - thus this out
 .. armcode::  
 
    @AND keeps 1 if both inputs are 1
-   MOV   r1,      #0xac             @ r1 = 0000 ... 1010 1100
-   @              #0x3D                    0000 ... 0011 1101
-   AND   r2, r1,  #0x3D             @ r2 = 0000 ... 0010 1100
+   MOV   r1,      #0x3C             @ r1 = 0000 ... 0011 1100
+   @              #0x6D                    0000 ... 0110 1101
+   AND   r2, r1,  #0x6D             @ r2 = 0000 ... 0010 1100 or 0x2C
 
    @ORR keeps 1 from either pattern
-   MOV   r4,      #0xac             @ r4 = 0000 ... 1010 1100
+   MOV   r4,      #0xAC             @ r4 = 0000 ... 1010 1100
    MOV   r5,      #0xF1             @ r5 = 0000 ... 1111 0001  
-   ORR   r6, r4, r5                 @ r6 = 0000 ... 1010 1101
+   ORR   r6, r4, r5                 @ r6 = 0000 ... 1111 1101 or 0xFD
 
