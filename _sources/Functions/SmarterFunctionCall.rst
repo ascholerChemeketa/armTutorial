@@ -9,7 +9,7 @@ A Smarter Function Call
 
 A lot of time is spent in the previous sample pushing and popping values from the stack. This is necessary because the main part of the program is relying on r1 being maintained and the function is making use of r4 and r5 which it is not supposed to modify. We could do the same work with less saving and restoring by using registers in the way the calling convention expects: temporary work should be done in r0-r3 and values we want to preserve are placed in r4-r9. 
 
-This version of the absolute value program uses registers in this more appropriate way. Because of how we use the registers in it, there is no need to save/restore registers to the stack:
+This version of the absolute value program uses registers in the way they should. Because it uses r0-r3 for temporaries only and r4-r9 for longer term storage, there is no need to save/restore registers to the stack:
 
 .. armcode::  
    :linenos:

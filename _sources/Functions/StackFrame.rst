@@ -166,6 +166,3 @@ When one function calls another, each new function's stack frame is built on top
          more??? ,
       
    When bar's stack frame is torn down, the ``sp`` and ``fp`` are restored to their former positions, restoring foo's stack frame.
-
-
-This sample shows demonstrates a function ``Bar`` that builds a stack frame with space for a parameter 

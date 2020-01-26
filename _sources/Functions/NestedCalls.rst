@@ -4,7 +4,7 @@
 Nested Function Calls
 ===============================================
 
-.. index:: ! calling convention
+.. index:: calling convention
 
 The basic calling convention introduced earlier does not provide for a function calling another function. When the first function is called, the ``lr`` will be set to point to the return address that function should use. If that function calls a second function using ``BL``, the ``lr`` will be replaced with the address to return to within the first function and wipe out where the first function needs to return to!
 
@@ -36,9 +36,9 @@ Function Epilogue (Done by called function)
 
    Pop any stored registers (r4-r9) from the stack to restore their old values.
 
-   :red:`Push lr from the stack`
+   :red:`Pop lr from the stack`
 
-   Return to the caller with ``MOV PC, LR``
+   Return to the caller with ``BR LX``
 
 Resume Control (Done by caller)
    Any returned value(s) are in registers r0-r3. 

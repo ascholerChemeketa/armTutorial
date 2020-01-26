@@ -29,15 +29,31 @@ The stack frame for this function would need space for the parameter **num** and
 
 Any time we want to access **num**, we will need to load/store from ``[fp, #-8]``. Any time we want to access the variable **a**, we will use the address ``[fp, #-12]``.
 
-The program below has the assembly version of this function. The prologue sets up this stack frame. Line 52 sets up the space for **num** and **a**. After that, the variable **num** needs to be initialized with the value passed in. The parameter was passed in r0, so it is copied to the location in memory  space has been reserved but no values are stored. Line 55 stores r0 into the correct location in memory: ``[fp, #-8]``.
+The program below has the assembly version of this function. 
 
-Then, in the body of the function, we use loads and stores to access and modify variables. Something like ``a = num + 1`` would turn into multiple steps: load the value of **num** from the stack frame, add 1 to that value, then store the result back to the location in the stack frame that corresponds to **a**. This process is demonstrated on lines 60-62.
+The prologue sets up this stack frame:
 
-Finally, the epilogue loads the variable to be returned into r0, then cleans up the stack frame.
+* First the fp and lr are pushed and the frame pointer set to point to the top of the frame on lines 46 and 50
+* Line 52 sets up the space for **num** and **a** by moving the stack pointer 8 bytes
+* The variable **num** needs to be initialized with the value passed in. The parameter was passed in r0, so on line 55 it is copied to the location in memory reserved for num: ``[fp, #-8]``
+
+Then, in the body of the function, we use loads and stores to access and modify variables. Something like ``a = num + 1`` turns into multiple steps: 
+
+* Load the value of **num** from the stack frame into a register
+* Add 1 to that register 
+* Then store the result back to the location in the stack frame that corresponds to **a**. 
+
+This process is demonstrated on lines 60-62.
+
+Finally, the epilogue gets the return value ready, cleans up the stack frame, and restores the fp and lr:
+
+* Line 70 loads the value from the location that corresponds to **a** into r0 to be returned
+* Then line 71 deallocates the space used for **num** and **a** by moving the stack pointer up 8 bytes
+* Then line 73 pops the fp and lr, leaving the stack pointer, fp and lr all where they were when we entered the function
 
 .. armcode::
    :linenos:
-   :emphasize-lines: 52, 55, 60-62
+   :emphasize-lines: 46, 50, 52, 55, 60-62, 70, 71, 73
 
    .text
    .global _start
