@@ -19,10 +19,10 @@ of the bits. Here are the most common codes:
 
    **EQ** , Equal, Z set
    **NE** , Not Equal, Z clear 
-   **GE** , Greater or Equal, N and V both set or both clear
-   **LT** , Greater Than, N set and V clear OR N clear and V set
-   **GT** , Greater Than, Z clear AND either N set and V clear or N clear and V set
-   **LE** , Less or Equal, Z set OR N set and V clear OR N clear and V set
+   **GE** , Greater or Equal, N == V
+   **LT** , Less Than, N != V
+   **GT** , Greater Than, (Z == 0) && (N == V)
+   **LE** , Less or Equal, (Z == 1) || (N != V)
 
 .. tip:: 
 
