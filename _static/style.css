@@ -3,6 +3,10 @@ table.highlighttable tbody, div.highlight-arm pre {
     background-color: rgb(37, 37, 37);
 }
 
+.highlight-cpp table.highlighttable tbody {
+    background-color: white;
+}
+
 table.highlighttable, div.highlight {
     overflow: hidden;
     border-collapse: separate !important;
@@ -229,4 +233,9 @@ dl dd {
         margin: 0px 5px;
         max-width: 45%;
     }
+}
+
+
+.stack-table .highlight {
+    background: #dff0da;
 }

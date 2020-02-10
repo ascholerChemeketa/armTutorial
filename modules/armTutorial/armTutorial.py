@@ -100,6 +100,7 @@ class StackDiagram(SphinxDirective):
         'no-stack-pointer': directives.flag,
         'empty': directives.flag,
         'start-address': directives.unchanged_required,
+        'buildup': directives.flag,
     }
 
     def run(self):
@@ -113,21 +114,32 @@ class StackDiagram(SphinxDirective):
         out = out + "<th>Contents</th>"
         out = out + "<th></th>"
         out = out + "</tr>"
-        
-        max_address = start_address - (len(self.content) + 1) * 4
-        address = max_address
+
+        rows = ""
+
+
+        if('buildup' in self.options):
+            direction_multiplier = 1
+            address = start_address
+        else:
+            direction_multiplier = -1
+            address = start_address
+            # address = start_address + direction_multiplier * (len(self.content) + 1) * 4
 
         stack_pointer_hit = False
+        if('empty' in self.options):
+            stack_pointer_hit = True
+
         show_out_of_scope = True
         if('no-stack-pointer' in self.options):
             show_out_of_scope = False
 
-        for line in reversed(self.content):
+        for line in self.content:
             parts = line.split(",")
-            address = address + 4
+            address = address + direction_multiplier * 4
             
             cell_class = ''
-            if parts[0] == '!':
+            if parts[0].strip() == '!':
                 cell_class = cell_class + 'highlight'
                 parts = parts[1:]
 
@@ -137,20 +149,25 @@ class StackDiagram(SphinxDirective):
             if len(parts) > 1:
                 note = parts[1]
 
-            if "< sp" in note:
-                stack_pointer_hit = True
-
             contents_class = ''
-            if not stack_pointer_hit and show_out_of_scope:  
+            if stack_pointer_hit and show_out_of_scope:  
                 contents_class = contents_class + ' off-stack'
+                
+            if "< sp" in note:
+                stack_pointer_hit = True        #udpate for next time
             
             note = note.replace("<", '<i class="fas fa-arrow-left"></i>')
 
-            out = out + "<tr class=''>"
-            out = out + "<td class='" + cell_class + "'>" + "0x{:08x}".format(address) + "</td>"
-            out = out + "<td class='" + cell_class + contents_class + "'>" + contents + "</td>"
-            out = out + "<td class='note'>" + note + "</td>"
-            out = out + "</tr>"
+            row = "<tr class=''>"
+            row = row + "<td class='" + cell_class + "'>" + "0x{:08x}".format(address) + "</td>"
+            row = row + "<td class='" + cell_class + contents_class + "'>" + contents + "</td>"
+            row = row + "<td class='note'>" + note + "</td>"
+            row = row + "</tr>"
+
+            if('buildup' in self.options):
+                rows = rows + row
+            else:
+                rows = row + rows
 
             
         start_note = ''
@@ -160,14 +177,18 @@ class StackDiagram(SphinxDirective):
         if start_address == 0x100000000:
             start_address = 0x00000000
 
-        out = out + "<tr class=''>"
-        out = out + "<td class=''>" + "0x{:08x}".format(start_address) + "</td>"
-        out = out + "<td class=''>" + "..." + "</td>"
-        out = out + "<td class='note'>" + start_note + "</td>"
-        out = out + "</tr>"
+        first_row = "<tr class=''>"
+        first_row = first_row + "<td class=''>" + "0x{:08x}".format(start_address) + "</td>"
+        first_row = first_row + "<td class=''>" + "..." + "</td>"
+        first_row = first_row + "<td class='note'>" + start_note + "</td>"
+        first_row = first_row + "</tr>"
 
+        if('buildup' in self.options):
+            rows = first_row + rows
+        else:
+            rows = rows + first_row
         
-        out = out + "</table>"
+        out = out + rows + "</table>"
 
         node = nodes.raw('', out , format='html')
         return [node]
