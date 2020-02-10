@@ -27,6 +27,11 @@ The stack frame for this function would need space for the parameter **num** and
    num, (fp - 8)
    a , (fp - 12) < sp
 
+.. tip::
+
+   All variables are allocated in the stack frame initialization as the function starts. We 
+   will assume that they are always placed in the order in which they are declared.
+
 Any time we want to access **num**, we will need to load/store from ``[fp, #-8]``. Any time we want to access the variable **a**, we will use the address ``[fp, #-12]``.
 
 The program below has the assembly version of this function. 

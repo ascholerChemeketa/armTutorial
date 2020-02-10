@@ -21,7 +21,7 @@ Function Call (Done by caller)
 Function Prologue (Done by called function)
    Push fp and lr to the stack
 
-   Set sp to point to top of the stack frame (where lr is located)
+   Set fp to point to top of the stack frame (where the stored lr is located)
 
    If the function will use any registers in r4-r9, push the current values to the stack.
 
@@ -37,7 +37,7 @@ Function Body (Done by called function)
 
 
 Function Epilogue (Done by called function)
-   Place any return value(s) in r0, r1, r2, r3. (C/C++ generally only return one value, but there is no reason in assembly you can't return more than one.)
+   Place any return value(s) in r0, r1, r2, r3. (in C/C++ we only return one value, but there is no reason in assembly you can't return more than one.)
 
    Deallocate space for parameters and locals by adding the used number of bytes to the stack pointer.
 
@@ -55,5 +55,5 @@ Resume Control (Done by caller)
 
 .. note::
 
-   Since storing and restoring the ``lr`` is only important if a function will call another function, compilers may omit saving the ``lr`` for functions that call other functions. They also may omit storing the ``fp``.
+   Since storing and restoring the ``lr`` is only important if a function will call another function, compilers may omit saving the ``lr`` for functions that call other functions. They also may omit storing the ``fp``. They also may skip using the stack entirely and just do all the work in registers.
 

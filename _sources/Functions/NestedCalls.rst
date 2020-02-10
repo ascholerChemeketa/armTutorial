@@ -52,7 +52,7 @@ Resume Control (Done by caller)
 
 -------------------------------------
 
-This simple program demonstrates how saving and restoring the ``lr`` allows a function to call another function and still successfully return to its caller. To see what happens without doing so, try commenting out lines 31 and 41. The simulator will realize something is amiss and give an error message. A real processor would happily "return" at the end of plusTwo back to line 42 (address 0x00000018) (where the last call to plusOne returned to) instead of back to line 10 (0x00000008).
+This simple program demonstrates how saving and restoring the ``lr`` allows a function to call another function and still successfully return to its caller. To see what happens without doing so, try commenting out lines 31 and 41. The simulator will realize something is amiss and give an error message when you hit the return in plusTwo. A real processor would happily "return" at the end of plusTwo back to line 42 (address 0x00000018) (where the last call to plusOne returned to) instead of back to line 10 (0x00000008). This would set up an infinite loop of line 42 returning to itself.
 
 .. armcode:: 
    :linenos:
