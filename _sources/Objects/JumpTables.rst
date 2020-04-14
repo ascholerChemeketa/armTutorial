@@ -43,10 +43,6 @@ jump to that location, and execute the code we find - that for **function3**.
    ... 
 
 
-We can use this approach even if we don't know at compile time what function 
-we will want to execute for a particular job. If we don't know what code we 
-will want to run, we can't set up a direct branch to it. 
-
 The jump table allows us to say *"I don't know where I will be branching too, 
 but I know the address I need will be stored in the jump table"*. Our code can 
 be written to go load that address and branch to it, even if we don't know what 
@@ -54,9 +50,11 @@ it will be. Other code can modify the jump table to make sure that at run time
 the jump table if filled with the correct addresses. 
 
 This approach is used in many places where such flexibility is needed. 
-Processors use this technique to handle exceptions - they automatically load 
-a value stored at a known address and then branch to the location named by 
-that value. The operating system or program running on the hardware has the 
+Processors use this technique to handle exceptions - each particular kind of 
+exception will automatically look at a different address to find the address of 
+the exception handler to call. The operating system or program running on the hardware has the 
 responsibility for providing code to handle such exceptions and making sure 
 that the address of their functions are loaded into the correct locations in 
-the jump table. It is also used to implment virtual function calls.
+the exception jump table. 
+
+Jump tables are also used to implment virtual function calls.

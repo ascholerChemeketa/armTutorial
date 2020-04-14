@@ -54,12 +54,16 @@ virtual:
 Lines 34 and 35 involve virtual dispatch. We are calling a function on a 
 pointer that could be pointing to either a Child or Parent object. To 
 enable them to determine which version of getNum or getBigBum to call, we 
-need to set up **vtables** - jump tables used for virtual functions - 
-for both classes and use those to look up the right version of the function 
-to use at run time.
+need to set up a jump table we can use to load the correct version of 
+getNum or getBigNum. A jump table used to determine which virtual 
+function to call is known as a **vtables**.
 
 These vtables will each first have the address for getNum, then the address 
-for getBugNum. If I have the address of a vtable, I can load its address + 0 
+for getBugNum. Each class will have its own vtable with pointers for its own 
+versions of the functions. But we will always arrange them in the same order. 
+Thus, if I have the address of a vtable, I can always know where to look inside 
+of it for each function. In the sample below, getNum is the first function 
+and getBigNum the second. So we can always load its address + 0 
 to find the address of the getNum function and the vtable address + 4 to get 
 the the address of the getBugNum function:
 
@@ -128,7 +132,7 @@ Given a call to ``pp2->getBigNum()``, the call would go something like this:
 
 * Load the address pp2 has: **0xfffffff4**.
 * We know that the start of that object is the vtable address, so load it: **0x000000c0**
-* We know that the getBigNum is always the second function in the vtable - 4 bytes in from the start - so load address **0x000000c0 + 4**. 
+* We know that the getBigNum is always the second function in the vtable 4 bytes in from the start, so load address **0x000000c0 + 4**. 
 * 0x000000c4 has the address **0x00000070**. (Refer to the image above) That must be the address of the getBigNum function that goes with this object. 
 
 Notice we are able to find the address for ``Child::getBigNum()`` without ever actually 

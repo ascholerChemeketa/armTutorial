@@ -53,13 +53,3 @@ was called.
       return this->hour;
    }
 
-
-
-Representing Objects in Assembly
-------------------------------------
-
-To produce something equivalent in assembly, we need to keep the data 
-for an object organized in a way that makes it possibly to find the 
-correct data for a given field and a way to represent **this** as 
-functions are called. We will start with how to store and find the data.
-``Time::getMinute()``

@@ -1,7 +1,13 @@
 .. include:: ../global.rst
 
-Objects Data
-==================================    
+
+Representing Objects in Assembly
+------------------------------------
+
+To produce something equivalent in assembly, we need to keep the data 
+for an object organized in a way that makes it possibly to find the 
+correct data for a given field and a way to represent **this** as 
+functions are called. We will start with how to store and find the data.
 
 Since our Time class consists of three ints, it occupies 3 words or 
 12 bytes of memory. If we have:
@@ -47,9 +53,9 @@ Would be laid out like this:
    00, address of time1 (time1.second)
    45, address of time1 - 4 (time1.minute)
    12, address of time1 - 8 (time1.hour)
-   00, address of time1 (time2.second)
-   30, address of time1 - 4 (time2.minute)
-   8, address of time1 - 8 (time2.hour)
+   00, address of time2 (time2.second)
+   30, address of time2 - 4 (time2.minute)
+   8, address of time2 - 8 (time2.hour)
 
 As long as we keep track that **time1** is at 0xfffffffc and **time2** is at 
 0xfffffff0, we can find the members of each object: **time1.minute** is at 
