@@ -22,7 +22,7 @@ pyparsing==2.2.0
 pytz==2018.5
 PyVirtualDisplay==0.2.1
 recommonmark==0.4.0
-requests==2.19.1
+requests==2.20.0
 rinoh-typeface-dejavuserif==0.1.1
 rinoh-typeface-texgyrecursor==0.1.1
 rinoh-typeface-texgyreheros==0.1.1
