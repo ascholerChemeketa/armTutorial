@@ -18,8 +18,11 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('modules'))
 
-from runestone import runestone_static_dirs, runestone_extensions
 import pkg_resources
+import runestone
+from runestone import runestone_static_dirs, runestone_extensions
+# Trick Runestone into running -- it expects the form of the import below. Instead, ``setup`` will call ``runeneston.setup``.
+#from runestone import setup
 
 # -- General configuration -----------------------------------------------------
 
@@ -28,7 +31,7 @@ import pkg_resources
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = runestone_extensions()  + ['armTutorial']
+extensions = runestone_extensions() + ['armTutorial']
 
 #,'runestone.video','runestone.reveal','runestone.poll','runestone.tabbedStuff','runestone.disqus','runestone.codelens','runestone.activecode', 'runestone.assess', 'runestone.animation','runestone.meta', 'runestone.parsons', 'runestone.blockly', 'runestone.livecode','runestone.accessibility']
 
@@ -301,11 +304,13 @@ htmlhelp_basename = 'PythonCoursewareProjectdoc'
 
 
 def setup(app):
-    #app.add_stylesheet('style.css') 
-    app.add_javascript('simulator.js')
-    app.add_javascript('https://kit.fontawesome.com/99041d2947.js')
+    app.add_autoversioned_javascript('simulator.js')
+    app.add_autoversioned_javascript('https://kit.fontawesome.com/99041d2947.js')
     app.add_autoversioned_stylesheet('style.css')
-    app.add_stylesheet('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    app.add_autoversioned_stylesheet('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+
+    return runestone.setup(app)
+
 
 import pygments
 arm_lexer = pygments.lexers.load_lexer_from_file('arm_lexer.py')
