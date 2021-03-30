@@ -19,4 +19,5 @@ Functions and the Stack
     NestedCalls.rst
     StackFrame.rst
     UsingStackFrame.rst
+    UsingStackFrame2.rst
     FinalCallingConvention.rst
