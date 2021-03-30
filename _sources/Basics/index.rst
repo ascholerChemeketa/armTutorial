@@ -17,3 +17,4 @@ Basics
     ComplexShifts.rst
     Multiply.rst
     Immediates.rst
+    PseudoInstructions.rst
